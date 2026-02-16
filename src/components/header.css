@@ -1,0 +1,23 @@
+a {
+  margin-left: 20px;
+}
+div.container {
+  padding-right: 50px;
+}
+.inputBox {
+  width: 250px;
+  padding: 7px 7px 7px 20px;
+  margin-right: 50px;
+  border-radius: 50px;
+  font-size: large;
+  outline: none;
+  border: none;
+  background-color: rgb(234, 236, 235);
+}
+button.button {
+  background: #3b85fc;
+  font-size: large;
+}
+button.button:hover {
+  background: #0056b3;
+}

@@ -1,0 +1,5 @@
+/* Add any specific styles for PastGenerations here if needed */
+.list-group-item {
+  background-color: #212529; /* Dark background matching the theme often seen in dark modes */
+  color: #fff;
+}
