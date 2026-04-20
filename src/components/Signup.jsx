@@ -9,77 +9,122 @@ function Signup({ changeTab }) {
     confirmPassword: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
+    setSuccessMsg("");
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      setErrorMsg("Passwords do not match!");
       return;
     }
 
-    console.log("Signup Data:", formData);
+    setLoading(true);
+
+    try {
+      const response = await fetch("http://localhost:8080/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Signup failed");
+      }
+
+      setSuccessMsg("Account created successfully! Redirecting to login...");
+      setTimeout(() => {
+        changeTab("Login");
+      }, 2000);
+
+    } catch (error) {
+      setErrorMsg(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="signup-container">
       <form className="signup-box" onSubmit={handleSubmit}>
         <div className="heading">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/9635/9635511.png"
-            alt="image not found"
-            className="image"
-          />
           <h2>Create Account</h2>
         </div>
+        <p className="signup-subtitle">Join us to start transcribing</p>
 
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-        />
+        {errorMsg && <div className="error-message">{errorMsg}</div>}
+        {successMsg && <div className="success-message">{successMsg}</div>}
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          onChange={handleChange}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          onChange={handleChange}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+        </div>
 
-        <button type="submit">Sign Up</button>
+        <div className="input-group">
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? "Signing up..." : "Sign Up"}
+        </button>
 
         <p className="link">
           Already have an account?{" "}
-          <a
-            href="#"
+          <span
+            className="link-style"
             onClick={() => {
               changeTab("Login");
             }}
           >
             Login
-          </a>
+          </span>
         </p>
       </form>
     </div>

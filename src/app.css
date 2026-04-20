@@ -1,6 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #4A90E2;
+  --primary-light: #eff5ff;
+  --primary-hover: #357ABD;
+  --bg-color: #f5f9ff;
+  --surface-color: #ffffff;
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+  --shadow-lg: 0 10px 25px rgba(74, 144, 226, 0.1);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-dark);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
 .appContainor {
   display: flex;
+  min-height: 100vh;
 }
+
 .content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+}
+
+/* Global button styles */
+.modern-btn {
+  border-radius: var(--radius-md) !important;
+  font-weight: 500 !important;
+  transition: var(--transition) !important;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary.modern-btn {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(74, 144, 226, 0.25) !important;
+}
+
+.btn-primary.modern-btn:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+  box-shadow: 0 6px 15px rgba(74, 144, 226, 0.35) !important;
+  transform: translateY(-1px);
+}
+
+.btn-primary.modern-btn:disabled {
+  opacity: 0.7;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.btn-outline-danger {
+  border-color: #ef4444 !important;
+  color: #ef4444 !important;
+}
+.btn-outline-danger:hover {
+  background-color: #ef4444 !important;
+  color: white !important;
+}
+
+.btn-outline-light.modern-btn {
+  border-color: var(--border-color) !important;
+  color: var(--text-dark) !important;
+  background: white;
+}
+.btn-outline-light.modern-btn:hover {
+  background: var(--bg-color);
+}
+
+.link-style {
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: none;
+}
+.link-style:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
 }

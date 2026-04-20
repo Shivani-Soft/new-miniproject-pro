@@ -1,3 +1,32 @@
 .container {
+  background: white !important;
+  border-right: 1px solid var(--border-color);
   height: 100vh;
+}
+
+:global(.modern-sidebar) {
+  background: white !important;
+}
+
+:global(.sidebar-divider) {
+  border-color: var(--border-color);
+  opacity: 1;
+}
+
+:global(.sidebar-link) {
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: var(--transition);
+  margin-bottom: 5px;
+  color: var(--text-muted) !important;
+}
+
+:global(.sidebar-link:hover) {
+  background: var(--bg-color);
+  color: var(--primary-color) !important;
+}
+
+:global(.sidebar-link.active-link) {
+  background: var(--primary-light) !important;
+  color: var(--primary-color) !important;
 }

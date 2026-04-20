@@ -1,5 +1,49 @@
-/* Add any specific styles for PastGenerations here if needed */
-.list-group-item {
-  background-color: #212529; /* Dark background matching the theme often seen in dark modes */
-  color: #fff;
+.pg-container {
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
+}
+
+.pg-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.pg-subtitle {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  background: white;
+  border: 1px dashed var(--border-color);
+  border-radius: 12px;
+  color: var(--text-muted);
+}
+
+.pg-item {
+  padding: 20px;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.pg-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.transcript-box {
+  background: var(--bg-color);
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  color: var(--text-dark);
 }

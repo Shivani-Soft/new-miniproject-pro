@@ -1,52 +1,84 @@
 import React, { useState } from "react";
-import "./Login.css";
+import "./login.css"; // Fixed case from Login.css to login.css
 
-function Login({ changeTab }) {
+function Login({ changeTab, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Login Successful!");
+    setLoading(true);
+    setErrorMsg("");
+
+    try {
+      const response = await fetch("http://localhost:8080/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
+      }
+
+      // Success
+      onLogin(data.user, data.token);
+
+    } catch (error) {
+      setErrorMsg(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="login-container">
       <form className="login-box" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <img
-          src="https://cdn-icons-png.freepik.com/512/4661/4661334.png"
-          alt="image not found"
-          className="login_image"
-        />
-        <input
-          type="email"
-          placeholder="Enter Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <h2>Welcome Back</h2>
+        <p className="login-subtitle">Sign in to continue</p>
+        
+        {errorMsg && <div className="error-message">{errorMsg}</div>}
 
-        <input
-          type="password"
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="input-group">
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-        <button type="submit">Login</button>
+        <div className="input-group">
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
 
         <p className="signup-text">
           Don't have an account?{" "}
-          <a
-            href="#"
+          <span
+            className="link-style"
             onClick={() => {
               changeTab("Signup");
             }}
           >
             Sign up
-          </a>
+          </span>
         </p>
       </form>
     </div>
